@@ -1,14 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+from . import views
+
+app_name = 'orders'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('products.urls')),
-    path('orders/', include('orders.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('create/<int:product_id>/', views.create_order, name='create'),
+    path('my/', views.my_orders, name='my_orders'),
+    path('courses/', views.my_courses, name='my_courses'),
+    path('download/<int:order_id>/', views.download_pdf, name='download'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
